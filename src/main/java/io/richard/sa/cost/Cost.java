@@ -1,9 +1,10 @@
 package io.richard.sa.cost;
 
-import io.richard.sa.Neighbourhood;
+import io.richard.sa.Ranking;
+import io.richard.sa.Tournament;
 
 public interface Cost {
 	
-	public int calculate(Neighbourhood n1, Neighbourhood n2);
+	public int calculate(Ranking ranking, Tournament tournament);
 	
 }

@@ -2,7 +2,11 @@ package io.richard.sa.cooling;
 
 public class DefaultCoolingRatio implements CoolingRatio {
 	
-	private double a = 0.9;
+	private double a;
+	
+	public DefaultCoolingRatio(){
+		a = 0.9;
+	}
 	
 	public DefaultCoolingRatio(double a) {
 		if (a <= 0 || a > 1)
