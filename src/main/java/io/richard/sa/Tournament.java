@@ -5,8 +5,8 @@ import java.util.Set;
 
 public class Tournament {
 	
-	Map<Integer, String> participants;
-	Set<Edge> edges;
+	private Map<Integer, String> participants;
+	private Set<Edge> edges;
 
 	public Tournament(Map<Integer, String> participants, Set<Edge> edges) {
 		this.participants = participants;
