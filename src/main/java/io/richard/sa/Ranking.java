@@ -40,11 +40,21 @@ public class Ranking {
 	@SuppressWarnings("unchecked")
 	public Ranking generateNeighbouringSolution(){
 		int index1 = random.nextInt(ranking.size());
-		int index2 = random.nextInt(ranking.size());
-		while(index2 == index1 - 1 || index2 == index1 + 1 || index1 == index2){
-			index2 = random.nextInt(ranking.size());
-		}
 		
+		// two random elements
+//		int index2 = random.nextInt(ranking.size());
+//		while(index2 == index1 - 1 || index2 == index1 + 1 || index1 == index2){
+//			index2 = random.nextInt(ranking.size());
+//		}
+		
+		// two neighbouring elements
+		double d = random.nextDouble();
+		int index2;
+		if (index1 == 0 || (d < 0.5 && index1 != ranking.size() -1)){
+			index2 = index1 + 1;
+		} else {
+			index2 = index1 - 1;
+		}
 		
 		Ranking newRanking = new Ranking((List<Integer>) ((ArrayList<Integer>) ranking).clone());
 		newRanking.swapElements(index1, index2);
@@ -61,7 +71,7 @@ public class Ranking {
 	}
 	
 	public String toString(){		
-		return "Ranking = " + ranking;
+		return "Ranking " + ranking + " = " + cost;
 	}
 	
 	

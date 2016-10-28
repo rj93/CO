@@ -46,44 +46,39 @@ public class SimulatedAnnealing {
 	
 	public Ranking anneal(Tournament tournament){
 		
-		Map<Ranking, Integer> rankings = new HashMap<Ranking, Integer>();
-		
 		Ranking currentRanking = Ranking.getDefualtRanking(tournament.getParticipants().size());
-//		rankings.put(currentRanking, cost.calculate(currentRanking, tournament));
+		currentRanking.setCost(cost.calculate(currentRanking, tournament));
 		double currentTemp = initialTemperature;
 		
 		int counter = 0;
+		Ranking best = currentRanking;
 		while (counter < stopIterations){
-			rankings.put(currentRanking, cost.calculate(currentRanking, tournament));
 			for (int length = 0; length < temperatureLength; length++){
 				Ranking neighbour = currentRanking.generateNeighbouringSolution();
-				int deltaC = cost.calculate(neighbour, tournament) - cost.calculate(currentRanking, tournament);
-//				System.out.println(neighbour + " = " + cost.calculate(neighbour, tournament) + ", " + cost.calculate(currentRanking, tournament));
+				neighbour.setCost(cost.calculate(neighbour, tournament));
+				int deltaC = neighbour.getCost() - currentRanking.getCost();
+//				System.out.print("new = " + cost.calculate(neighbour, tournament) + ", old = " + cost.calculate(currentRanking, tournament));
 				if (deltaC <= 0){
 					currentRanking = neighbour;
+					if (currentRanking.getCost() < best.getCost()){
+						best = currentRanking;
+					}
+//					System.out.print(" accepted");
 				} else {
 					double q = random.nextDouble();
 					if (q < Math.pow(Math.E, (-deltaC/currentTemp))){
 						currentRanking = neighbour;
+//						System.out.print(" accepted (q = " + q + " prob = " + Math.pow(Math.E, (-deltaC/currentTemp)) + ")");
 					}	
 				}
-				
+//				System.out.println();
 			}
+
 			currentTemp = coolingRatio.cool(currentTemp);
 			counter++;
 		}
 		
-		Ranking bestR = null;
-		int bestC = Integer.MAX_VALUE;
-		for (Map.Entry<Ranking, Integer> entry : rankings.entrySet()){
-			if (entry.getValue() < bestC){
-				bestC = entry.getValue();
-				bestR = entry.getKey();
-			}
-		}
-//		System.out.println(rankings);
-		System.out.println(bestR + " = " + bestC);
-		return bestR;
+		return best;
 	}
 
 }
