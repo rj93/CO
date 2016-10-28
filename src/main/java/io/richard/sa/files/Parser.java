@@ -54,8 +54,8 @@ public class Parser {
 			
 			tournament = new Tournament(participants, edges);
 
-			System.out.println(participants);
-			System.out.println(edges);
+//			System.out.println(participants);
+//			System.out.println(edges);
 		}
 		
 		return tournament;

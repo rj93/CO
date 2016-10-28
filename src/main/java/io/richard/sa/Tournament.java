@@ -17,4 +17,12 @@ public class Tournament {
 		return participants.get(id);
 	}
 	
+	public Map<Integer, String> getParticipants(){
+		return participants;
+	}
+	
+	public Set<Edge> getEdges(){
+		return edges;
+	}
+	
 }

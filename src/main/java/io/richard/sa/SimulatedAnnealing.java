@@ -1,8 +1,8 @@
 package io.richard.sa;
 
-import java.util.HashSet;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
-import java.util.Set;
 
 import io.richard.sa.cooling.CoolingRatio;
 import io.richard.sa.cooling.DefaultCoolingRatio;
@@ -15,9 +15,9 @@ public class SimulatedAnnealing {
 	
 	private CoolingRatio coolingRatio;
 	private Cost cost;
-	private double initialTemperature;
-	private int temperatureLength;
-	private int stopIterations = 100;
+	private double initialTemperature = 1000;
+	private int temperatureLength = 100;
+	private int stopIterations = 1000;
 	
 	public SimulatedAnnealing(){
 		coolingRatio = new DefaultCoolingRatio();
@@ -31,17 +31,19 @@ public class SimulatedAnnealing {
 	
 	public Ranking anneal(Tournament tournament){
 		
-		Set<Ranking> rankings = new HashSet<Ranking>();
+		Map<Ranking, Integer> rankings = new HashMap<Ranking, Integer>();
 		
-		Ranking currentRanking = Ranking.getDefualtRanking();
-		rankings.add(currentRanking);
+		Ranking currentRanking = Ranking.getDefualtRanking(tournament.getParticipants().size());
+//		rankings.put(currentRanking, cost.calculate(currentRanking, tournament));
 		double currentTemp = initialTemperature;
 		
 		int counter = 0;
 		while (counter < stopIterations){
+			rankings.put(currentRanking, cost.calculate(currentRanking, tournament));
 			for (int length = 0; length < temperatureLength; length++){
 				Ranking neighbour = currentRanking.generateNeighbouringSolution();
 				int deltaC = cost.calculate(neighbour, tournament) - cost.calculate(currentRanking, tournament);
+//				System.out.println(neighbour + " = " + cost.calculate(neighbour, tournament) + ", " + cost.calculate(currentRanking, tournament));
 				if (deltaC <= 0){
 					currentRanking = neighbour;
 				} else {
@@ -53,9 +55,20 @@ public class SimulatedAnnealing {
 				
 			}
 			currentTemp = coolingRatio.cool(currentTemp);
+			counter++;
 		}
 		
-		return null;
+		Ranking bestR = null;
+		int bestC = Integer.MAX_VALUE;
+		for (Map.Entry<Ranking, Integer> entry : rankings.entrySet()){
+			if (entry.getValue() < bestC){
+				bestC = entry.getValue();
+				bestR = entry.getKey();
+			}
+		}
+//		System.out.println(rankings);
+		System.out.println(bestR + " = " + bestC);
+		return bestR;
 	}
 
 }

@@ -5,7 +5,7 @@ public class DefaultCoolingRatio implements CoolingRatio {
 	private double a;
 	
 	public DefaultCoolingRatio(){
-		a = 0.9;
+		a = 0.99;
 	}
 	
 	public DefaultCoolingRatio(double a) {
