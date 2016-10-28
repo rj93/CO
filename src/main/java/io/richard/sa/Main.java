@@ -4,6 +4,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Arrays;
 
+import javax.swing.DebugGraphics;
+
+import io.richard.sa.cooling.DefaultCoolingRatio;
 import io.richard.sa.cost.Cost;
 import io.richard.sa.cost.KemenyCost;
 import io.richard.sa.files.Parser;
@@ -18,27 +21,14 @@ public class Main {
 //		System.out.println(Parser.getEdges(file));
 //		System.out.println(Parser.getTournament(file));
 		
-		
 		Tournament t = Parser.getTournament(file);
 		
-		
 		SimulatedAnnealing sa = new SimulatedAnnealing();
+		sa.setCoolingRatio(new DefaultCoolingRatio(0.95));
+		sa.setInitialTemperature(100);
+		sa.setTemperatureLength(100);
+		sa.setStopIterations(100);
 		sa.anneal(t);
-		
-//		int A = 1;
-//		int B = 2;
-//		int C = 3;
-//		int D = 4;
-//		Cost c = new KemenyCost();
-//		
-//		Ranking r1 = new Ranking(Arrays.asList(A, B, C, D));
-//		System.out.println(r1 + " = " + c.calculate(r1, t));
-//		
-//		Ranking r2 = new Ranking(Arrays.asList(B, D, C, A));
-//		System.out.println(r2 + " = " + c.calculate(r2, t));
-//		
-//		Ranking r3 = new Ranking(Arrays.asList(A, B, D, C));
-//		System.out.println(r3 + " = " + c.calculate(r3, t));
 	}
 
 }

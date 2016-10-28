@@ -15,18 +15,33 @@ public class SimulatedAnnealing {
 	
 	private CoolingRatio coolingRatio;
 	private Cost cost;
-	private double initialTemperature = 1000;
+	private double initialTemperature = 100;
 	private int temperatureLength = 100;
-	private int stopIterations = 1000;
-	
+	private int stopIterations = 100;
+
 	public SimulatedAnnealing(){
 		coolingRatio = new DefaultCoolingRatio();
 		cost = new KemenyCost();
 	}
 	
-	public SimulatedAnnealing(CoolingRatio coolingRatio, Cost cost){
+	public void setCoolingRatio(CoolingRatio coolingRatio){
 		this.coolingRatio = coolingRatio;
+	}
+	
+	public void setCost(Cost cost) {
 		this.cost = cost;
+	}
+
+	public void setInitialTemperature(double initialTemperature) {
+		this.initialTemperature = initialTemperature;
+	}
+
+	public void setTemperatureLength(int temperatureLength) {
+		this.temperatureLength = temperatureLength;
+	}
+
+	public void setStopIterations(int stopIterations) {
+		this.stopIterations = stopIterations;
 	}
 	
 	public Ranking anneal(Tournament tournament){
