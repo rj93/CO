@@ -1,13 +1,13 @@
 package io.richard.sa;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 
 import io.richard.sa.cooling.CoolingRatio;
 import io.richard.sa.cooling.DefaultCoolingRatio;
 import io.richard.sa.cost.Cost;
 import io.richard.sa.cost.KemenyCost;
+import io.richard.sa.neighbours.AdjacentNeighbouringSolution;
+import io.richard.sa.neighbours.NeighbouringSolution;
 
 public class SimulatedAnnealing {
 	
@@ -18,6 +18,7 @@ public class SimulatedAnnealing {
 	private double initialTemperature = 100;
 	private int temperatureLength = 100;
 	private int stopIterations = 100;
+	private NeighbouringSolution neighbouringSolution = new AdjacentNeighbouringSolution();
 
 	public SimulatedAnnealing(){
 		coolingRatio = new DefaultCoolingRatio();
@@ -44,9 +45,13 @@ public class SimulatedAnnealing {
 		this.stopIterations = stopIterations;
 	}
 	
+	public void setNeighbouringSolution(NeighbouringSolution neighbouringSolution){
+		this.neighbouringSolution = neighbouringSolution;
+	}
+	
 	public Ranking anneal(Tournament tournament){
 		
-		Ranking currentRanking = Ranking.getDefualtRanking(tournament.getParticipants().size());
+		Ranking currentRanking = new Ranking(tournament.getParticipants());
 		currentRanking.setCost(cost.calculate(currentRanking, tournament));
 		double currentTemp = initialTemperature;
 		
@@ -54,7 +59,8 @@ public class SimulatedAnnealing {
 		Ranking best = currentRanking;
 		while (counter < stopIterations){
 			for (int length = 0; length < temperatureLength; length++){
-				Ranking neighbour = currentRanking.generateNeighbouringSolution();
+//				Ranking neighbour = currentRanking.generateNeighbouringSolution();
+				Ranking neighbour = neighbouringSolution.getNeighbour(currentRanking);
 				neighbour.setCost(cost.calculate(neighbour, tournament));
 				int deltaC = neighbour.getCost() - currentRanking.getCost();
 //				System.out.print("new = " + cost.calculate(neighbour, tournament) + ", old = " + cost.calculate(currentRanking, tournament));

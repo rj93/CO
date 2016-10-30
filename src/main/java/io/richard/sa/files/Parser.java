@@ -4,26 +4,29 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import io.richard.sa.Edge;
+import io.richard.sa.Participant;
 import io.richard.sa.Tournament;
 
 public class Parser {
 	
-	private static Map<Integer, String> getParticipants(BufferedReader br) throws IOException {
+	private static List<Participant> getParticipants(BufferedReader br) throws IOException {
 
 		int noOfParticipants = Integer.parseInt(br.readLine());
 		
-		Map<Integer, String> participants = new HashMap<Integer, String>();	
+		List<Participant> participants = new ArrayList<Participant>();	
 		for (int i = 0; i < noOfParticipants; i++){
 			String parts[] = br.readLine().split(",");
 			int id = Integer.parseInt(parts[0]);
 			String name = parts[1];
-			participants.put(id, name);
+			participants.add(new Participant(id, name));
 		}
 		return participants;
 	}
@@ -48,7 +51,7 @@ public class Parser {
 		
 		Tournament tournament = null;
 		try (BufferedReader br = new BufferedReader(new FileReader(file))){
-			Map<Integer, String> participants = getParticipants(br);
+			List<Participant> participants = getParticipants(br);
 			br.readLine(); // skip "how data was generated" line
 			Set<Edge> edges = getEdges(br);
 			

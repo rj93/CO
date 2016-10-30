@@ -1,23 +1,20 @@
 package io.richard.sa;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 public class Tournament {
 	
-	private Map<Integer, String> participants;
+	private List<Participant> participants;
 	private Set<Edge> edges;
 
-	public Tournament(Map<Integer, String> participants, Set<Edge> edges) {
+	public Tournament(List<Participant> participants, Set<Edge> edges) {
 		this.participants = participants;
 		this.edges = edges;
 	}
 	
-	public String getParticipantName(int id){
-		return participants.get(id);
-	}
-	
-	public Map<Integer, String> getParticipants(){
+	public List<Participant> getParticipants(){
 		return participants;
 	}
 	
