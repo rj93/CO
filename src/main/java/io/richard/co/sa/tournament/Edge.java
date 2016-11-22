@@ -1,4 +1,4 @@
-package io.richard.sa;
+package io.richard.co.sa.tournament;
 
 public class Edge {
 	

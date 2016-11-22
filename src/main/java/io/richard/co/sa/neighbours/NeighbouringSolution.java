@@ -1,8 +1,8 @@
-package io.richard.sa.neighbours;
+package io.richard.co.sa.neighbours;
 
 import java.util.Random;
 
-import io.richard.sa.Ranking;
+import io.richard.co.sa.tournament.Ranking;
 
 public interface NeighbouringSolution {
 	

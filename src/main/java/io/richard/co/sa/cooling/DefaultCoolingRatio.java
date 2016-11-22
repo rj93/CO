@@ -1,4 +1,4 @@
-package io.richard.sa.cooling;
+package io.richard.co.sa.cooling;
 
 public class DefaultCoolingRatio implements CoolingRatio {
 	

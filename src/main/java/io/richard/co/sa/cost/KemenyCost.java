@@ -1,13 +1,13 @@
-package io.richard.sa.cost;
+package io.richard.co.sa.cost;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import io.richard.sa.Edge;
-import io.richard.sa.Participant;
-import io.richard.sa.Ranking;
-import io.richard.sa.Tournament;
+import io.richard.co.sa.tournament.Edge;
+import io.richard.co.sa.tournament.Participant;
+import io.richard.co.sa.tournament.Ranking;
+import io.richard.co.sa.tournament.Tournament;
 
 public class KemenyCost implements Cost {
 

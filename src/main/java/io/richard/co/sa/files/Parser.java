@@ -1,4 +1,4 @@
-package io.richard.sa.files;
+package io.richard.co.sa.files;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -11,9 +11,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import io.richard.sa.Edge;
-import io.richard.sa.Participant;
-import io.richard.sa.Tournament;
+import io.richard.co.sa.tournament.Edge;
+import io.richard.co.sa.tournament.Participant;
+import io.richard.co.sa.tournament.Tournament;
 
 public class Parser {
 	

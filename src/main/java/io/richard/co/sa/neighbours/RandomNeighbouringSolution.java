@@ -1,10 +1,10 @@
-package io.richard.sa.neighbours;
+package io.richard.co.sa.neighbours;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import io.richard.sa.Participant;
-import io.richard.sa.Ranking;
+import io.richard.co.sa.tournament.Participant;
+import io.richard.co.sa.tournament.Ranking;
 
 public class RandomNeighbouringSolution implements NeighbouringSolution {
 
