@@ -64,7 +64,7 @@ public class SimulatedAnnealing {
 		while (counter < stopIterations && bestRanking.getCost() != 0){
 			for (int length = 0; length < temperatureLength; length++){
 
-				if (counter % m == 0 && m > 0){
+				if (m > 0 && counter % m == 0){
 					System.out.println(counter + ") Best " + bestRanking + ", Current " + currentRanking);
 				}
 				
@@ -80,7 +80,8 @@ public class SimulatedAnnealing {
 					double q = random.nextDouble();
 					if (q < Math.pow(Math.E, (-deltaC/currentTemp))){
 						currentRanking = neighbour;
-					}	
+						// TODO Do I need to update best ranking here?
+					}
 				}
 				
 				counter++;
@@ -88,7 +89,7 @@ public class SimulatedAnnealing {
 
 			currentTemp = coolingRatio.cool(currentTemp);
 		}
-		System.out.println(counter);
+		System.out.println("final counter: " + counter);
 		return bestRanking;
 	}
 
