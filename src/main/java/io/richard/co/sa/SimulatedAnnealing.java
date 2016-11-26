@@ -22,6 +22,8 @@ public class SimulatedAnnealing {
 	private int temperatureLength = 100;
 	private int stopIterations = 1000;
 	private NeighbouringSolution neighbouringSolution = new AdjacentNeighbouringSolution();
+	
+	private int iterations = 0;
 
 	public SimulatedAnnealing(int m){
 		this.m = m;
@@ -53,19 +55,26 @@ public class SimulatedAnnealing {
 		this.neighbouringSolution = neighbouringSolution;
 	}
 	
+	public int getIterations(){
+		return iterations;
+	}
+	
 	public Ranking anneal(Tournament tournament){
+		
+		iterations = 0;
 		
 		Ranking currentRanking = new Ranking(tournament.getParticipants());
 		currentRanking.setCost(cost.calculate(currentRanking, tournament));
 		double currentTemp = initialTemperature;
 		
-		int counter = 0;
 		Ranking bestRanking = currentRanking;
-		while (counter < stopIterations && bestRanking.getCost() != 0){
+		while (iterations < stopIterations && bestRanking.getCost() != 0){
 			for (int length = 0; length < temperatureLength; length++){
+				
+				if (bestRanking.getCost() == 0) break;
 
-				if (m > 0 && counter % m == 0){
-					System.out.println(counter + ") Best " + bestRanking + ", Current " + currentRanking);
+				if (m > 0 && iterations % m == 0){
+					System.out.println(iterations + ") Best " + bestRanking + ", Current " + currentRanking);
 				}
 				
 				Ranking neighbour = neighbouringSolution.getNeighbour(currentRanking);
@@ -84,12 +93,11 @@ public class SimulatedAnnealing {
 					}
 				}
 				
-				counter++;
+				iterations++;
 			}
 
 			currentTemp = coolingRatio.cool(currentTemp);
 		}
-		System.out.println("final counter: " + counter);
 		return bestRanking;
 	}
 

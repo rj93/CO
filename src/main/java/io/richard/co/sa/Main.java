@@ -38,6 +38,7 @@ public class Main {
 		Ranking r = sa.anneal(t);
 		
 		System.out.println(r);
+		System.out.println("iterations = " + sa.getIterations());
 	}
 
 }
