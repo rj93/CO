@@ -1,9 +1,12 @@
 package io.richard.co.sa.cost;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import io.richard.co.sa.neighbours.Neighbour;
 import io.richard.co.sa.tournament.Edge;
 import io.richard.co.sa.tournament.Participant;
 import io.richard.co.sa.tournament.Ranking;
@@ -26,6 +29,28 @@ public class KemenyCost implements Cost {
 				}
 			}
 			processedRanks.add(p.getId());
+		}
+		
+		return score;
+	}
+	
+	@Override
+	public int calculate(Neighbour neighbour, Tournament tournament) {
+		Ranking orginal = neighbour.getOriginalRanking();
+		
+		List<Participant> ranks = orginal.getRanking();
+		Set<Edge> edges = tournament.getEdges();
+		
+		int score = orginal.getCost();
+		Participant p1 = ranks.get(Math.min(neighbour.getIndex1(), neighbour.getIndex2()));
+		Participant p2 = ranks.get(Math.max(neighbour.getIndex1(), neighbour.getIndex2()));
+
+		for (Edge edge : edges){
+			if (edge.getStartId() == p1.getId() & edge.getEndId() == p2.getId()){
+				score += edge.getWeight();
+			} else if (edge.getStartId() == p2.getId() & edge.getEndId() == p1.getId()){
+				score -= edge.getWeight();
+			}
 		}
 		
 		return score;

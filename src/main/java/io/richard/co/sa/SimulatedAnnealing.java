@@ -7,6 +7,7 @@ import io.richard.co.sa.cooling.DefaultCoolingRatio;
 import io.richard.co.sa.cost.Cost;
 import io.richard.co.sa.cost.KemenyCost;
 import io.richard.co.sa.neighbours.AdjacentNeighbouringSolution;
+import io.richard.co.sa.neighbours.Neighbour;
 import io.richard.co.sa.neighbours.NeighbouringSolution;
 import io.richard.co.sa.tournament.Ranking;
 import io.richard.co.sa.tournament.Tournament;
@@ -72,23 +73,21 @@ public class SimulatedAnnealing {
 			for (int length = 0; length < temperatureLength; length++){
 				
 				if (bestRanking.getCost() == 0) break;
-
-				if (m > 0 && iterations % m == 0){
-					System.out.println(iterations + ") Best " + bestRanking + ", Current " + currentRanking);
-				}
+				if (m > 0 && iterations % m == 0) System.out.println(iterations + ") Best " + bestRanking + ", Current " + currentRanking);
 				
-				Ranking neighbour = neighbouringSolution.getNeighbour(currentRanking);
-				neighbour.setCost(cost.calculate(neighbour, tournament));
-				int deltaC = neighbour.getCost() - currentRanking.getCost();
+				Neighbour neighbour = neighbouringSolution.getNeighbour(currentRanking);
+				Ranking neighbourRanking = neighbour.getNeighbourRanking();
+				neighbourRanking.setCost(cost.calculate(neighbour, tournament));
+				int deltaC = neighbourRanking.getCost() - currentRanking.getCost();
 				if (deltaC <= 0){
-					currentRanking = neighbour;
+					currentRanking = neighbourRanking;
 					if (currentRanking.getCost() < bestRanking.getCost()){
 						bestRanking = currentRanking;
 					}
 				} else {
 					double q = random.nextDouble();
 					if (q < Math.pow(Math.E, (-deltaC/currentTemp))){
-						currentRanking = neighbour;
+						currentRanking = neighbourRanking;
 						// TODO Do I need to update best ranking here?
 					}
 				}

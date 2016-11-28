@@ -7,7 +7,6 @@ import java.util.Scanner;
 import io.richard.co.sa.cooling.DefaultCoolingRatio;
 import io.richard.co.sa.files.Parser;
 import io.richard.co.sa.neighbours.AdjacentNeighbouringSolution;
-import io.richard.co.sa.neighbours.RandomNeighbouringSolution;
 import io.richard.co.sa.tournament.Ranking;
 import io.richard.co.sa.tournament.Tournament;
 
@@ -39,6 +38,8 @@ public class Main {
 		
 		System.out.println(r);
 		System.out.println("iterations = " + sa.getIterations());
+		
+		
 	}
 
 }

@@ -8,6 +8,6 @@ public interface NeighbouringSolution {
 	
 	static final Random random = new Random();
 	
-	public Ranking getNeighbour(Ranking ranking);
+	public Neighbour getNeighbour(Ranking ranking);
 	
 }
