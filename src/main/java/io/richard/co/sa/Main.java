@@ -18,8 +18,6 @@ public class Main {
 			throw new IllegalArgumentException();
 		
 		String file = args[0];
-//		file = "example_data.wmg";
-//		file = "example_data2.wmg";
 		
 		Scanner sIn = new Scanner(System.in);
 		System.out.print("Enter m: ");
@@ -41,7 +39,6 @@ public class Main {
 		r.pretty();
 		System.out.println("Kemeny Cost = " + r.getCost());
 		System.out.println("Time taken = " + diff / 1000000 + "ms");
-		
 		
 	}
 
