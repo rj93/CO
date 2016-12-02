@@ -24,20 +24,23 @@ public class Main {
 		Scanner sIn = new Scanner(System.in);
 		System.out.print("Enter m: ");
 		int m = sIn.nextInt();
-		sIn.close();
-		
+		sIn.close();		
 		
 		Tournament t = Parser.getTournament(file);
 		SimulatedAnnealing sa = new SimulatedAnnealing(m);
 		sa.setCoolingRatio(new DefaultCoolingRatio(0.95));
 		sa.setInitialTemperature(100);
-		sa.setTemperatureLength(100);
+		sa.setTemperatureLength(10);
 		sa.setStopIterations(10000);
 		sa.setNeighbouringSolution(new AdjacentNeighbouringSolution());
-		Ranking r = sa.anneal(t);
 		
-		System.out.println(r);
-		System.out.println("iterations = " + sa.getIterations());
+		long start = System.nanoTime();
+		Ranking r = sa.anneal(t);
+		long diff = System.nanoTime() - start;
+		
+		r.pretty();
+		System.out.println("Kemeny Cost = " + r.getCost());
+		System.out.println("Time taken = " + diff / 1000000 + "ms");
 		
 		
 	}

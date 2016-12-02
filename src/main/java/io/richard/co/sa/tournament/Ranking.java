@@ -39,5 +39,12 @@ public class Ranking {
 		return "Ranking " + ranking + " = " + cost;
 	}
 	
+	public void pretty(){
+		int i = 1;
+		for (Participant p : ranking){
+			System.out.println(i++ + ". " + p);
+		}
+	}
+	
 	
 }

@@ -19,6 +19,7 @@ public class Participant {
 	}
 	
 	public String toString(){
-		return String.valueOf(id);
+//		return String.valueOf(id);
+		return name;
 	}
 }

@@ -69,10 +69,9 @@ public class SimulatedAnnealing {
 		double currentTemp = initialTemperature;
 		
 		Ranking bestRanking = currentRanking;
-		while (iterations < stopIterations && bestRanking.getCost() != 0){
+		while (iterations < stopIterations){
 			for (int length = 0; length < temperatureLength; length++){
 				
-				if (bestRanking.getCost() == 0) break;
 				if (m > 0 && iterations % m == 0) System.out.println(iterations + ") Best " + bestRanking + ", Current " + currentRanking);
 				
 				Neighbour neighbour = neighbouringSolution.getNeighbour(currentRanking);
@@ -88,7 +87,9 @@ public class SimulatedAnnealing {
 					double q = random.nextDouble();
 					if (q < Math.pow(Math.E, (-deltaC/currentTemp))){
 						currentRanking = neighbourRanking;
-						// TODO Do I need to update best ranking here?
+						if (currentRanking.getCost() < bestRanking.getCost()){
+							bestRanking = currentRanking;
+						}
 					}
 				}
 				
